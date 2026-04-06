@@ -734,6 +734,230 @@
             font-size: 1.2rem;
         }
         .chapter-card.open .card-header .toggle-icon { transform: rotate(180deg); }
+
+        /* ===== 設定面板 ===== */
+        .settings-toggle {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 1000;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .settings-toggle:hover {
+            color: var(--text);
+            border-color: var(--primary);
+            transform: rotate(60deg);
+        }
+        .settings-toggle.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: rotate(180deg);
+        }
+
+        .settings-panel {
+            position: fixed;
+            bottom: 92px;
+            right: 28px;
+            z-index: 999;
+            width: 300px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .settings-panel.open {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .settings-panel h3 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .setting-group {
+            margin-bottom: 20px;
+        }
+        .setting-group:last-child { margin-bottom: 0; }
+        .setting-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        /* 主題色選擇器 */
+        .theme-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .theme-btn {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .theme-btn:hover { transform: scale(1.1); }
+        .theme-btn.active {
+            border-color: #fff;
+            box-shadow: 0 0 12px rgba(255,255,255,0.2);
+        }
+        .theme-btn::after {
+            content: attr(data-name);
+            position: absolute;
+            bottom: 2px;
+            left: 0; right: 0;
+            text-align: center;
+            font-size: 0.55rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 700;
+        }
+        .theme-btn[data-theme="default"]  { background: linear-gradient(135deg, #6C63FF, #E942F5); }
+        .theme-btn[data-theme="ocean"]    { background: linear-gradient(135deg, #0077B6, #00B4D8); }
+        .theme-btn[data-theme="sunset"]   { background: linear-gradient(135deg, #FF6B35, #F7931E); }
+        .theme-btn[data-theme="forest"]   { background: linear-gradient(135deg, #2D6A4F, #52B788); }
+        .theme-btn[data-theme="rose"]     { background: linear-gradient(135deg, #E63946, #F48C8C); }
+        .theme-btn[data-theme="midnight"] { background: linear-gradient(135deg, #1B1464, #6C63FF); }
+        .theme-btn[data-theme="amber"]    { background: linear-gradient(135deg, #F59E0B, #FBBF24); }
+        .theme-btn[data-theme="cyber"]    { background: linear-gradient(135deg, #00FF88, #00D4FF); }
+
+        /* 開關 */
+        .setting-switch {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .switch {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            cursor: pointer;
+        }
+        .switch input { display: none; }
+        .switch .slider {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 26px;
+            transition: all 0.3s ease;
+        }
+        .switch .slider::before {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            left: 3px; bottom: 3px;
+            background: #fff;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .switch input:checked + .slider {
+            background: var(--primary);
+        }
+        .switch input:checked + .slider::before {
+            transform: translateX(22px);
+        }
+
+        /* 主題變數覆蓋 */
+        body.theme-ocean {
+            --primary: #0077B6; --primary-dark: #005F8A; --primary-light: #00B4D8;
+            --bg: #0A1628; --bg-card: #112240; --bg-card-hover: #1A3358;
+            --border: rgba(0, 119, 182, 0.2);
+        }
+        body.theme-ocean .orb:nth-child(1) { background: #0077B6; }
+        body.theme-ocean .orb:nth-child(2) { background: #00B4D8; }
+        body.theme-ocean .orb:nth-child(3) { background: #90E0EF; }
+        body.theme-ocean .hero h1 { background: linear-gradient(135deg, #00B4D8, #90E0EF); -webkit-background-clip: text; background-clip: text; }
+
+        body.theme-sunset {
+            --primary: #FF6B35; --primary-dark: #E85D2C; --primary-light: #F7931E;
+            --bg: #1A0F0A; --bg-card: #2D1810; --bg-card-hover: #3D2218;
+            --border: rgba(255, 107, 53, 0.2);
+        }
+        body.theme-sunset .orb:nth-child(1) { background: #FF6B35; }
+        body.theme-sunset .orb:nth-child(2) { background: #F7931E; }
+        body.theme-sunset .orb:nth-child(3) { background: #FFD166; }
+        body.theme-sunset .hero h1 { background: linear-gradient(135deg, #FF6B35, #FFD166); -webkit-background-clip: text; background-clip: text; }
+
+        body.theme-forest {
+            --primary: #2D6A4F; --primary-dark: #1B4332; --primary-light: #52B788;
+            --bg: #0A1410; --bg-card: #132A1E; --bg-card-hover: #1C3A28;
+            --border: rgba(45, 106, 79, 0.25);
+        }
+        body.theme-forest .orb:nth-child(1) { background: #2D6A4F; }
+        body.theme-forest .orb:nth-child(2) { background: #52B788; }
+        body.theme-forest .orb:nth-child(3) { background: #95D5B2; }
+        body.theme-forest .hero h1 { background: linear-gradient(135deg, #52B788, #B7E4C7); -webkit-background-clip: text; background-clip: text; }
+
+        body.theme-rose {
+            --primary: #E63946; --primary-dark: #C1121F; --primary-light: #F48C8C;
+            --bg: #1A0A0D; --bg-card: #2D1318; --bg-card-hover: #3D1C22;
+            --border: rgba(230, 57, 70, 0.2);
+        }
+        body.theme-rose .orb:nth-child(1) { background: #E63946; }
+        body.theme-rose .orb:nth-child(2) { background: #F48C8C; }
+        body.theme-rose .orb:nth-child(3) { background: #FFB3C1; }
+        body.theme-rose .hero h1 { background: linear-gradient(135deg, #E63946, #FFB3C1); -webkit-background-clip: text; background-clip: text; }
+
+        body.theme-midnight {
+            --primary: #4361EE; --primary-dark: #3A0CA3; --primary-light: #7B9EFF;
+            --bg: #080820; --bg-card: #0F1035; --bg-card-hover: #181A4A;
+            --border: rgba(67, 97, 238, 0.2);
+        }
+        body.theme-midnight .orb:nth-child(1) { background: #3A0CA3; }
+        body.theme-midnight .orb:nth-child(2) { background: #4361EE; }
+        body.theme-midnight .orb:nth-child(3) { background: #7B9EFF; }
+        body.theme-midnight .hero h1 { background: linear-gradient(135deg, #4361EE, #7B9EFF); -webkit-background-clip: text; background-clip: text; }
+
+        body.theme-amber {
+            --primary: #F59E0B; --primary-dark: #D97706; --primary-light: #FBBF24;
+            --bg: #1A150A; --bg-card: #2D2410; --bg-card-hover: #3D3218;
+            --border: rgba(245, 158, 11, 0.2);
+        }
+        body.theme-amber .orb:nth-child(1) { background: #F59E0B; }
+        body.theme-amber .orb:nth-child(2) { background: #FBBF24; }
+        body.theme-amber .orb:nth-child(3) { background: #FDE68A; }
+        body.theme-amber .hero h1 { background: linear-gradient(135deg, #F59E0B, #FDE68A); -webkit-background-clip: text; background-clip: text; }
+
+        body.theme-cyber {
+            --primary: #00FF88; --primary-dark: #00CC6A; --primary-light: #00FFB3;
+            --bg: #0A0F14; --bg-card: #101E1A; --bg-card-hover: #182D26;
+            --border: rgba(0, 255, 136, 0.15);
+        }
+        body.theme-cyber .orb:nth-child(1) { background: #00FF88; }
+        body.theme-cyber .orb:nth-child(2) { background: #00D4FF; }
+        body.theme-cyber .orb:nth-child(3) { background: #00FFB3; }
+        body.theme-cyber .hero h1 { background: linear-gradient(135deg, #00FF88, #00D4FF); -webkit-background-clip: text; background-clip: text; }
+
+        /* 特效關閉 */
+        body.no-particles .bg-particles { display: none; }
+        body.no-shimmer .hero-tag::before { animation: none; display: none; }
     </style>
 </head>
 <body>
@@ -1260,7 +1484,112 @@
         <p>&copy; 2026 阿亮老師 版權所有｜本平台僅供課程學員學習使用</p>
     </footer>
 
+    <!-- 設定面板 -->
+    <button class="settings-toggle" id="settingsToggle" title="設定">&#9881;</button>
+    <div class="settings-panel" id="settingsPanel">
+        <h3>&#9881; 外觀設定</h3>
+
+        <div class="setting-group">
+            <div class="setting-label">主題風格</div>
+            <div class="theme-options">
+                <button class="theme-btn active" data-theme="default" data-name="預設" title="預設紫"></button>
+                <button class="theme-btn" data-theme="ocean" data-name="海洋" title="海洋藍"></button>
+                <button class="theme-btn" data-theme="sunset" data-name="日落" title="日落橘"></button>
+                <button class="theme-btn" data-theme="forest" data-name="��林" title="森林綠"></button>
+                <button class="theme-btn" data-theme="rose" data-name="玫瑰" title="玫瑰紅"></button>
+                <button class="theme-btn" data-theme="midnight" data-name="午夜" title="午夜藍"></button>
+                <button class="theme-btn" data-theme="amber" data-name="琥珀" title="琥珀金"></button>
+                <button class="theme-btn" data-theme="cyber" data-name="科幻" title="科幻綠"></button>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <div class="setting-switch">
+                <span class="setting-label" style="margin-bottom:0">背景光暈特效</span>
+                <label class="switch">
+                    <input type="checkbox" id="particleToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <div class="setting-switch">
+                <span class="setting-label" style="margin-bottom:0">流光動畫</span>
+                <label class="switch">
+                    <input type="checkbox" id="shimmerToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // ===== 設定面板 =====
+        const settingsToggle = document.getElementById('settingsToggle');
+        const settingsPanel = document.getElementById('settingsPanel');
+
+        settingsToggle.addEventListener('click', () => {
+            settingsToggle.classList.toggle('active');
+            settingsPanel.classList.toggle('open');
+        });
+
+        // 點擊外部關閉
+        document.addEventListener('click', (e) => {
+            if (!settingsPanel.contains(e.target) && !settingsToggle.contains(e.target)) {
+                settingsToggle.classList.remove('active');
+                settingsPanel.classList.remove('open');
+            }
+        });
+
+        // 主題切換
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.dataset.theme;
+                document.body.className = document.body.className.replace(/theme-\S+/g, '').trim();
+                if (theme !== 'default') document.body.classList.add('theme-' + theme);
+                // 保留 no-particles / no-shimmer
+                if (!document.getElementById('particleToggle').checked) document.body.classList.add('no-particles');
+                if (!document.getElementById('shimmerToggle').checked) document.body.classList.add('no-shimmer');
+                document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                localStorage.setItem('portal-theme', theme);
+            });
+        });
+
+        // 粒子特效開關
+        document.getElementById('particleToggle').addEventListener('change', function() {
+            document.body.classList.toggle('no-particles', !this.checked);
+            localStorage.setItem('portal-particles', this.checked);
+        });
+
+        // 流光動畫開關
+        document.getElementById('shimmerToggle').addEventListener('change', function() {
+            document.body.classList.toggle('no-shimmer', !this.checked);
+            localStorage.setItem('portal-shimmer', this.checked);
+        });
+
+        // 讀取儲存的設定
+        (function loadSettings() {
+            const savedTheme = localStorage.getItem('portal-theme');
+            if (savedTheme && savedTheme !== 'default') {
+                document.body.classList.add('theme-' + savedTheme);
+                document.querySelectorAll('.theme-btn').forEach(b => {
+                    b.classList.toggle('active', b.dataset.theme === savedTheme);
+                });
+            }
+            const savedParticles = localStorage.getItem('portal-particles');
+            if (savedParticles === 'false') {
+                document.body.classList.add('no-particles');
+                document.getElementById('particleToggle').checked = false;
+            }
+            const savedShimmer = localStorage.getItem('portal-shimmer');
+            if (savedShimmer === 'false') {
+                document.body.classList.add('no-shimmer');
+                document.getElementById('shimmerToggle').checked = false;
+            }
+        })();
+
         // 展開/收合
         function toggleCard(header) {
             const card = header.closest('.chapter-card');
