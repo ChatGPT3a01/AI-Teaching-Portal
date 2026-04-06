@@ -168,6 +168,151 @@
             font-size: 1.3rem;
         }
 
+        /* ===== 購書推薦 ===== */
+        .book-section {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto 50px;
+            padding: 0 20px;
+        }
+        .book-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            align-items: stretch;
+            transition: all 0.35s ease;
+            position: relative;
+        }
+        .book-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at 20% 50%, rgba(108,99,255,0.08), transparent 70%);
+            pointer-events: none;
+        }
+        .book-card:hover {
+            border-color: rgba(108, 99, 255, 0.4);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-4px);
+        }
+        .book-cover {
+            flex-shrink: 0;
+            width: 220px;
+            padding: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .book-cover img {
+            width: 100%;
+            max-width: 180px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 20px rgba(108,99,255,0.15);
+            transition: transform 0.4s ease;
+        }
+        .book-card:hover .book-cover img {
+            transform: scale(1.05) rotate(-1deg);
+        }
+        .book-info {
+            flex: 1;
+            padding: 32px 32px 32px 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .book-info .book-label {
+            display: inline-block;
+            background: var(--gradient-1);
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+            width: fit-content;
+            letter-spacing: 1px;
+        }
+        .book-info h3 {
+            font-size: 1.25rem;
+            font-weight: 900;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        .book-info .book-author {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+        .book-info .book-publisher {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 18px;
+        }
+        .book-info .book-price {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .book-price .price-sale {
+            font-size: 1.6rem;
+            font-weight: 900;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .book-price .price-original {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+        .book-price .price-discount {
+            font-size: 0.8rem;
+            background: rgba(255,107,107,0.15);
+            border: 1px solid rgba(255,107,107,0.3);
+            color: var(--accent-light);
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-weight: 700;
+        }
+        .book-buy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 14px;
+            background: var(--gradient-1);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: fit-content;
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
+        }
+        .book-buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(108, 99, 255, 0.45);
+        }
+        .book-buy-btn .btn-arrow {
+            transition: transform 0.3s ease;
+        }
+        .book-buy-btn:hover .btn-arrow {
+            transform: translateX(4px);
+        }
+        @media (max-width: 768px) {
+            .book-card { flex-direction: column; }
+            .book-cover { width: 100%; padding: 28px 28px 0; }
+            .book-cover img { max-width: 160px; }
+            .book-info { padding: 24px; }
+        }
+
         /* ===== 快速入口 ===== */
         .quick-access {
             position: relative;
@@ -609,6 +754,29 @@
             </div>
             <div class="hero-tag tag-manual">
                 <span class="tag-icon">&#128214;</span> 教師手冊
+            </div>
+        </div>
+    </section>
+
+    <!-- 購書推薦 -->
+    <section class="book-section">
+        <div class="book-card">
+            <div class="book-cover">
+                <img src="https://cf-assets2.tenlong.com.tw/products/images/000/256/802/original/9786264144131_bc.jpg?1769586376" alt="不懂程式也能自架專屬 AI 書籍封面">
+            </div>
+            <div class="book-info">
+                <div class="book-label">&#9733; 實體書籍</div>
+                <h3>不懂程式也能自架專屬 AI<br>Vibe Coding 教你從零開始<br>本地部署與雲端整合</h3>
+                <div class="book-author">曾慶良（阿亮老師）著</div>
+                <div class="book-publisher">博碩文化 出版</div>
+                <div class="book-price">
+                    <span class="price-sale">$616</span>
+                    <span class="price-original">$790</span>
+                    <span class="price-discount">7.8 折</span>
+                </div>
+                <a href="https://www.tenlong.com.tw/products/9786264144131?list_name=lv" target="_blank" class="book-buy-btn">
+                    立即購書 <span class="btn-arrow">&rarr;</span>
+                </a>
             </div>
         </div>
     </section>
