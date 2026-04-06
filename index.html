@@ -112,27 +112,60 @@
             margin: 0 auto 36px;
             line-height: 1.7;
         }
-        .hero-stats {
+        .hero-tags {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 16px;
             flex-wrap: wrap;
         }
-        .hero-stat {
-            text-align: center;
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
-        .hero-stat .num {
-            font-size: 2rem;
-            font-weight: 900;
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero-tag::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 200%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s ease-in-out infinite;
         }
-        .hero-stat .label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 4px;
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .hero-tag:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+        .hero-tag.tag-slides {
+            background: linear-gradient(135deg, rgba(108,99,255,0.2), rgba(233,66,245,0.2));
+            border: 1px solid rgba(108,99,255,0.4);
+            color: #C4BFFF;
+        }
+        .hero-tag.tag-slides:hover { box-shadow: 0 0 24px rgba(108,99,255,0.35); }
+        .hero-tag.tag-parts {
+            background: linear-gradient(135deg, rgba(0,210,255,0.2), rgba(58,123,213,0.2));
+            border: 1px solid rgba(0,210,255,0.4);
+            color: #7EE8FA;
+        }
+        .hero-tag.tag-parts:hover { box-shadow: 0 0 24px rgba(0,210,255,0.35); }
+        .hero-tag.tag-manual {
+            background: linear-gradient(135deg, rgba(255,107,107,0.2), rgba(255,165,0,0.2));
+            border: 1px solid rgba(255,107,107,0.4);
+            color: #FFB3B3;
+        }
+        .hero-tag.tag-manual:hover { box-shadow: 0 0 24px rgba(255,107,107,0.35); }
+        .hero-tag .tag-icon {
+            font-size: 1.3rem;
         }
 
         /* ===== 快速入口 ===== */
@@ -567,18 +600,15 @@
         <div class="hero-badge">VibeCoding 教學資源平台</div>
         <h1>自己架設AI<br>零基礎到大師</h1>
         <p>完整 11 個章節、54 個單元的教學簡報與教師手冊，<br>帶你從零開始掌握 AI 應用開發</p>
-        <div class="hero-stats">
-            <div class="hero-stat">
-                <div class="num">11</div>
-                <div class="label">教學章節</div>
+        <div class="hero-tags">
+            <div class="hero-tag tag-slides">
+                <span class="tag-icon">&#128218;</span> 教學章節
             </div>
-            <div class="hero-stat">
-                <div class="num">54</div>
-                <div class="label">簡報單元</div>
+            <div class="hero-tag tag-parts">
+                <span class="tag-icon">&#128200;</span> 簡報單元
             </div>
-            <div class="hero-stat">
-                <div class="num">15</div>
-                <div class="label">教師手冊</div>
+            <div class="hero-tag tag-manual">
+                <span class="tag-icon">&#128214;</span> 教師手冊
             </div>
         </div>
     </section>
