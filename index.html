@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自己架設AI 零基礎到大師｜教學資源總覽</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #5A52D5;
+            --primary-light: #8B85FF;
+            --accent: #FF6B6B;
+            --accent-light: #FF8E8E;
+            --bg: #0F0E17;
+            --bg-card: #1A1932;
+            --bg-card-hover: #222148;
+            --text: #FFFFFE;
+            --text-muted: #A7A9BE;
+            --border: rgba(108, 99, 255, 0.2);
+            --gradient-1: linear-gradient(135deg, #6C63FF, #E942F5);
+            --gradient-2: linear-gradient(135deg, #FF6B6B, #FFA500);
+            --gradient-3: linear-gradient(135deg, #00D2FF, #3A7BD5);
+            --shadow: 0 8px 32px rgba(0,0,0,0.3);
+            --shadow-glow: 0 0 40px rgba(108, 99, 255, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== 背景動畫粒子 ===== */
+        .bg-particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .bg-particles .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: float 20s ease-in-out infinite;
+        }
+        .bg-particles .orb:nth-child(1) {
+            width: 500px; height: 500px;
+            background: #6C63FF;
+            top: -10%; left: -5%;
+            animation-delay: 0s;
+        }
+        .bg-particles .orb:nth-child(2) {
+            width: 400px; height: 400px;
+            background: #E942F5;
+            top: 40%; right: -10%;
+            animation-delay: -7s;
+        }
+        .bg-particles .orb:nth-child(3) {
+            width: 350px; height: 350px;
+            background: #00D2FF;
+            bottom: -5%; left: 30%;
+            animation-delay: -14s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        /* ===== Hero 區 ===== */
+        .hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 80px 20px 50px;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(108, 99, 255, 0.15);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: var(--primary-light);
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 36px;
+            line-height: 1.7;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat .num {
+            font-size: 2rem;
+            font-weight: 900;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-stat .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== 快速入口 ===== */
+        .quick-access {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            padding: 0 20px 60px;
+            flex-wrap: wrap;
+        }
+        .quick-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .quick-btn.teacher {
+            background: var(--gradient-2);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+        }
+        .quick-btn.teacher:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.4);
+        }
+        .quick-btn.slides {
+            background: var(--gradient-3);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 210, 255, 0.3);
+        }
+        .quick-btn.slides:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 210, 255, 0.4);
+        }
+
+        /* ===== 教師手冊區 ===== */
+        .teacher-section {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+        .teacher-card {
+            background: linear-gradient(135deg, rgba(255,107,107,0.08), rgba(255,165,0,0.08));
+            border: 1px solid rgba(255,107,107,0.25);
+            border-radius: 20px;
+            padding: 36px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .teacher-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--gradient-2);
+        }
+        .teacher-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+        .teacher-card p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .teacher-card .credential {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            margin: 6px;
+            user-select: all;
+        }
+        .credential .label-tag {
+            color: var(--accent-light);
+            font-weight: 700;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .teacher-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 12px 28px;
+            background: var(--gradient-2);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .teacher-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(255, 107, 107, 0.35);
+        }
+
+        /* ===== 章節卡片區 ===== */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+            font-size: 1rem;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .chapter-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            position: relative;
+        }
+        .chapter-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(108, 99, 255, 0.4);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .card-header {
+            padding: 24px 24px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .card-number {
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        .card-header-text h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+        .card-header-text .part-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .card-parts {
+            padding: 0 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .part-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid transparent;
+        }
+        .part-link:hover {
+            background: rgba(108, 99, 255, 0.1);
+            border-color: rgba(108, 99, 255, 0.25);
+            padding-left: 18px;
+        }
+        .part-link .part-num {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(108, 99, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+        .part-link .arrow {
+            margin-left: auto;
+            opacity: 0;
+            transition: all 0.2s ease;
+            color: var(--primary-light);
+        }
+        .part-link:hover .arrow {
+            opacity: 1;
+            transform: translateX(3px);
+        }
+
+        .card-footer {
+            padding: 12px 24px 16px;
+            border-top: 1px solid var(--border);
+        }
+        .card-footer a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .card-footer a:hover {
+            color: #fff;
+        }
+
+        /* ===== 卡片色系 ===== */
+        .ch0  .card-number { background: linear-gradient(135deg, #FF6B6B, #FF8E53); }
+        .ch1  .card-number { background: linear-gradient(135deg, #FFA500, #FFD93D); }
+        .ch2  .card-number { background: linear-gradient(135deg, #6BCB77, #2ECC71); }
+        .ch3  .card-number { background: linear-gradient(135deg, #00D2FF, #3A7BD5); }
+        .ch4  .card-number { background: linear-gradient(135deg, #6C63FF, #8B85FF); }
+        .ch5  .card-number { background: linear-gradient(135deg, #E942F5, #C850C0); }
+        .ch6  .card-number { background: linear-gradient(135deg, #FF6B6B, #EE5A6F); }
+        .ch7  .card-number { background: linear-gradient(135deg, #0ABDE3, #48DBFB); }
+        .ch8  .card-number { background: linear-gradient(135deg, #00B894, #55EFC4); }
+        .ch9  .card-number { background: linear-gradient(135deg, #FDCB6E, #F39C12); }
+        .ch10 .card-number { background: linear-gradient(135deg, #A29BFE, #6C5CE7); }
+
+        /* ===== 作者資訊 ===== */
+        .author-section {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding: 0 20px 80px;
+        }
+        .author-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+        .author-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+        .author-card .author-title {
+            color: var(--primary-light);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+        .author-positions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+        .position-tag {
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .awards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        .award-tag {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.2);
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: #FFD93D;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+        }
+        .social-link:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,0.2);
+        }
+        .social-link.yt { background: rgba(255, 0, 0, 0.12); }
+        .social-link.yt:hover { background: rgba(255, 0, 0, 0.2); }
+        .social-link.fb { background: rgba(66, 103, 178, 0.15); }
+        .social-link.fb:hover { background: rgba(66, 103, 178, 0.25); }
+        .social-link.email { background: rgba(0, 210, 255, 0.1); }
+        .social-link.email:hover { background: rgba(0, 210, 255, 0.18); }
+
+        /* ===== 頁尾 ===== */
+        .footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        /* ===== 搜尋列 ===== */
+        .search-bar {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            margin: 0 auto 48px;
+            padding: 0 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text);
+            font-size: 1rem;
+            font-family: 'Noto Sans TC', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-bar input::placeholder { color: var(--text-muted); }
+        .search-bar input:focus { border-color: var(--primary); }
+        .search-bar .search-icon {
+            position: absolute;
+            left: 36px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* ===== RWD ===== */
+        @media (max-width: 768px) {
+            .hero { padding: 50px 16px 30px; }
+            .hero-stats { gap: 24px; }
+            .chapters-grid { grid-template-columns: 1fr; }
+            .teacher-card { padding: 24px; }
+            .author-card { padding: 28px 20px; }
+            .quick-access { gap: 10px; }
+            .quick-btn { padding: 12px 20px; font-size: 0.9rem; }
+        }
+
+        /* ===== 展開/收合動畫 ===== */
+        .card-parts { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .chapter-card.open .card-parts { max-height: 800px; }
+        .card-header { cursor: pointer; }
+        .card-header .toggle-icon {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+        .chapter-card.open .card-header .toggle-icon { transform: rotate(180deg); }
+    </style>
+</head>
+<body>
+    <!-- 背景 -->
+    <div class="bg-particles">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-badge">2026 教學資源平台</div>
+        <h1>自己架設AI<br>零基礎到大師</h1>
+        <p>完整 11 個章節、54 個單元的教學簡報與教師手冊，<br>帶你從零開始掌握 AI 應用開發</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="num">11</div>
+                <div class="label">教學章節</div>
+            </div>
+            <div class="hero-stat">
+                <div class="num">54</div>
+                <div class="label">簡報單元</div>
+            </div>
+            <div class="hero-stat">
+                <div class="num">15</div>
+                <div class="label">教師手冊</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 快速入口 -->
+    <div class="quick-access">
+        <a href="https://teacher-manual-aliang.netlify.app/" target="_blank" class="quick-btn teacher">
+            <span>📖</span> 教師手冊
+        </a>
+        <a href="#chapters" class="quick-btn slides">
+            <span>📊</span> 教學簡報
+        </a>
+    </div>
+
+    <!-- 教師手冊區 -->
+    <section class="teacher-section">
+        <div class="teacher-card">
+            <h2>📖 教師手冊</h2>
+            <p>完整 15 個單元的教學指引，包含教學目標、活動設計、評量建議</p>
+            <div>
+                <div class="credential">
+                    <span class="label-tag">帳號</span> 阿亮老師
+                </div>
+                <div class="credential">
+                    <span class="label-tag">密碼</span> Aa@0981737608
+                </div>
+            </div>
+            <br>
+            <a href="https://teacher-manual-aliang.netlify.app/" target="_blank" class="teacher-link">
+                前往教師手冊 &rarr;
+            </a>
+        </div>
+    </section>
+
+    <!-- 簡報章節 -->
+    <section class="container" id="chapters">
+        <h2 class="section-title">教學簡報總覽</h2>
+        <p class="section-subtitle">點擊章節展開所有 Part，點擊 Part 直接開啟簡報</p>
+
+        <div class="search-bar">
+            <span class="search-icon">&#128269;</span>
+            <input type="text" id="searchInput" placeholder="搜尋章節或關鍵字...">
+        </div>
+
+        <div class="chapters-grid" id="chaptersGrid">
+
+            <!-- CH0 -->
+            <div class="chapter-card ch0" data-keywords="vibecoding 氛圍編程 提示詞">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-number">0</div>
+                    <div class="card-header-text">
+                        <h3>Vibe Coding 氛圍編程</h3>
+                        <div class="part-count">5 個 Part</div>
+                    </div>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="card-parts">
+                    <a class="part-link" href="https://chatgpt3a01.github.io/VibeCoding/%E7%B0%A1%E5%A0%B1/Part1_%E8%AA%8D%E8%AD%98VibeCoding.html" target="_blank">
+                        <span class="part-num">1</span> 認識 Vibe Coding <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/VibeCoding/%E7%B0%A1%E5%A0%B1/Part2_%E6%8F%90%E7%A4%BA%E8%A9%9E%E7%9A%84%E8%97%9D%E8%A1%93.html" target="_blank">
+                        <span class="part-num">2</span> 提示詞的藝術 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/VibeCoding/%E7%B0%A1%E5%A0%B1/Part3_%E5%AF%A6%E7%94%A8%E5%B7%A5%E5%85%B7.html" target="_blank">
+                        <span class="part-num">3</span> 實用工具 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/VibeCoding/%E7%B0%A1%E5%A0%B1/Part4_%E6%8A%80%E8%A1%93%E8%88%87%E5%AF%A6%E4%BD%9C.html" target="_blank">
+                        <span class="part-num">4</span> 技術與實作 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/VibeCoding/%E7%B0%A1%E5%A0%B1/Part5_%E7%B8%BD%E7%B5%90%E8%88%87%E5%B1%95%E6%9C%9B.html" target="_blank">
+                        <span class="part-num">5</span> 總結與展望 <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="https://chatgpt3a01.github.io/VibeCoding/%E7%B0%A1%E5%A0%B1/index.html" target="_blank">開啟統整頁 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CH1 -->
+            <div class="chapter-card ch1" data-keywords="API Key 通關鑰匙 OpenAI Google Claude">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-number">1</div>
+                    <div class="card-header-text">
+                        <h3>獲取 AI 通關鑰匙：API Key</h3>
+                        <div class="part-count">6 個 Part</div>
+                    </div>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="card-parts">
+                    <a class="part-link" href="https://chatgpt3a01.github.io/APIKey_Tutorial/%E7%B0%A1%E5%A0%B1/Part1_%E8%AA%8D%E8%AD%98API_Key.html" target="_blank">
+                        <span class="part-num">1</span> 認識 API Key <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/APIKey_Tutorial/%E7%B0%A1%E5%A0%B1/Part2_API_Key%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86.html" target="_blank">
+                        <span class="part-num">2</span> API Key 安全管理 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/APIKey_Tutorial/%E7%B0%A1%E5%A0%B1/Part3_%E7%94%B3%E8%AB%8BOpenAI_API_Key.html" target="_blank">
+                        <span class="part-num">3</span> 申請 OpenAI API Key <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/APIKey_Tutorial/%E7%B0%A1%E5%A0%B1/Part4_%E7%94%B3%E8%AB%8BGoogle_AI_Studio_API_Key.html" target="_blank">
+                        <span class="part-num">4</span> 申請 Google AI Studio API Key <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/APIKey_Tutorial/%E7%B0%A1%E5%A0%B1/Part5_%E7%94%B3%E8%AB%8BClaude_API_Key.html" target="_blank">
+                        <span class="part-num">5</span> 申請 Claude API Key <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/APIKey_Tutorial/%E7%B0%A1%E5%A0%B1/Part6_%E6%B8%AC%E8%A9%A6%E8%88%87%E7%AE%A1%E7%90%86.html" target="_blank">
+                        <span class="part-num">6</span> 測試與管理 <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="https://chatgpt3a01.github.io/APIKey_Tutorial/%E7%B0%A1%E5%A0%B1/index.html" target="_blank">開啟統整頁 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CH2 -->
+            <div class="chapter-card ch2" data-keywords="Flask 地端 雲端 串接 Python 部署">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-number">2</div>
+                    <div class="card-header-text">
+                        <h3>地端與雲端串接概念</h3>
+                        <div class="part-count">8 個 Part</div>
+                    </div>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="card-parts">
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LocalCloud_Tutorial/%E7%B0%A1%E5%A0%B1/Part1_%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99.html" target="_blank">
+                        <span class="part-num">1</span> 環境準備 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LocalCloud_Tutorial/%E7%B0%A1%E5%A0%B1/Part2_Flask%E5%9F%BA%E7%A4%8E%E5%AF%A6%E4%BD%9C.html" target="_blank">
+                        <span class="part-num">2</span> Flask 基礎實作 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LocalCloud_Tutorial/%E7%B0%A1%E5%A0%B1/Part3_AI_API%E4%B8%B2%E6%8E%A5.html" target="_blank">
+                        <span class="part-num">3</span> AI API 串接 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LocalCloud_Tutorial/%E7%B0%A1%E5%A0%B1/Part4_Postman%E6%B8%AC%E8%A9%A6.html" target="_blank">
+                        <span class="part-num">4</span> Postman 測試 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LocalCloud_Tutorial/%E7%B0%A1%E5%A0%B1/Part5_Python%E8%85%B3%E6%9C%AC%E6%B8%AC%E8%A9%A6.html" target="_blank">
+                        <span class="part-num">5</span> Python 腳本測試 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LocalCloud_Tutorial/%E7%B0%A1%E5%A0%B1/Part6_%E7%B6%B2%E9%A0%81%E4%BB%8B%E9%9D%A2.html" target="_blank">
+                        <span class="part-num">6</span> 網頁介面 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LocalCloud_Tutorial/%E7%B0%A1%E5%A0%B1/Part7_%E5%89%8D%E5%BE%8C%E7%AB%AF%E4%B8%B2%E6%8E%A5.html" target="_blank">
+                        <span class="part-num">7</span> 前後端串接 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LocalCloud_Tutorial/%E7%B0%A1%E5%A0%B1/Part8_%E9%9B%B2%E7%AB%AF%E9%83%A8%E7%BD%B2%E6%BA%96%E5%82%99.html" target="_blank">
+                        <span class="part-num">8</span> 雲端部署準備 <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="https://chatgpt3a01.github.io/LocalCloud_Tutorial/%E7%B0%A1%E5%A0%B1/index.html" target="_blank">開啟統整頁 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CH3 -->
+            <div class="chapter-card ch3" data-keywords="RAG 知識庫 向量 嵌入 問答">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-number">3</div>
+                    <div class="card-header-text">
+                        <h3>打造 RAG 知識庫問答平台</h3>
+                        <div class="part-count">5 個 Part</div>
+                    </div>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="card-parts">
+                    <a class="part-link" href="https://chatgpt3a01.github.io/RAG-Knowledge-Base-Platform/%E7%B0%A1%E5%A0%B1/Part1_RAG%E6%8A%80%E8%A1%93%E5%85%A5%E9%96%80%E8%88%87%E5%83%B9%E5%80%BC.html" target="_blank">
+                        <span class="part-num">1</span> RAG 技術入門與價值 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/RAG-Knowledge-Base-Platform/%E7%B0%A1%E5%A0%B1/Part2_%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2RAG%E5%B9%B3%E5%8F%B0.html" target="_blank">
+                        <span class="part-num">2</span> 快速部署 RAG 平台 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/RAG-Knowledge-Base-Platform/%E7%B0%A1%E5%A0%B1/Part3_%E5%90%91%E9%87%8F%E5%B5%8C%E5%85%A5%E8%88%87%E7%9B%B8%E4%BC%BC%E5%BA%A6%E5%8E%9F%E7%90%86.html" target="_blank">
+                        <span class="part-num">3</span> 向量嵌入與相似度原理 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/RAG-Knowledge-Base-Platform/%E7%B0%A1%E5%A0%B1/Part4_%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B%E8%88%87%E7%A8%8B%E5%BC%8F%E8%A7%A3%E6%9E%90.html" target="_blank">
+                        <span class="part-num">4</span> 系統架構與程式解析 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/RAG-Knowledge-Base-Platform/%E7%B0%A1%E5%A0%B1/Part5_%E7%9F%A5%E8%AD%98%E5%BA%AB%E7%AE%A1%E7%90%86%E8%88%87%E9%80%B2%E9%9A%8E%E6%87%89%E7%94%A8.html" target="_blank">
+                        <span class="part-num">5</span> 知識庫管理與進階應用 <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="https://chatgpt3a01.github.io/RAG-Knowledge-Base-Platform/%E7%B0%A1%E5%A0%B1/" target="_blank">開啟統整頁 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CH4 -->
+            <div class="chapter-card ch4" data-keywords="智慧助手 記帳 行事曆 新聞 電影 摘要">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-number">4</div>
+                    <div class="card-header-text">
+                        <h3>AI 智慧助手（記帳/行事曆/新聞/電影/摘要）</h3>
+                        <div class="part-count">8 個 Part</div>
+                    </div>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="card-parts">
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI-Smart-Assistant/slides/Part1_%E5%B9%B3%E5%8F%B0%E7%B0%A1%E4%BB%8B%E8%88%87%E5%8A%9F%E8%83%BD%E7%B8%BD%E8%A6%BD.html" target="_blank">
+                        <span class="part-num">1</span> 平台簡介與功能總覽 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI-Smart-Assistant/slides/Part2_%E5%BF%AB%E9%80%9F%E9%96%8B%E5%A7%8B%E8%88%87%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A.html" target="_blank">
+                        <span class="part-num">2</span> 快速開始與環境設定 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI-Smart-Assistant/slides/Part3_%E5%A4%9A%E5%8A%9F%E8%83%BD%E6%95%B4%E5%90%88%E8%A8%AD%E8%A8%88%E7%90%86%E5%BF%B5.html" target="_blank">
+                        <span class="part-num">3</span> 多功能整合設計理念 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI-Smart-Assistant/slides/Part4_%E5%B0%88%E6%A1%88%E6%9E%B6%E6%A7%8B%E8%88%87%E6%A8%A1%E7%B5%84%E8%A6%8F%E5%8A%83.html" target="_blank">
+                        <span class="part-num">4</span> 專案架構與模組規劃 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI-Smart-Assistant/slides/Part5_AI%E8%81%8A%E5%A4%A9%E8%88%87%E6%99%BA%E6%85%A7%E8%A8%98%E5%B8%B3.html" target="_blank">
+                        <span class="part-num">5</span> AI 聊天與智慧記帳 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI-Smart-Assistant/slides/Part6_%E8%A1%8C%E4%BA%8B%E6%9B%86%E8%88%87%E5%A4%A9%E6%B0%A3%E6%9F%A5%E8%A9%A2.html" target="_blank">
+                        <span class="part-num">6</span> 行事曆與天氣查詢 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI-Smart-Assistant/slides/Part7_%E6%96%B0%E8%81%9E%E9%9B%BB%E5%BD%B1%E8%88%87%E8%82%A1%E7%A5%A8%E5%88%86%E6%9E%90.html" target="_blank">
+                        <span class="part-num">7</span> 新聞、電影與股票分析 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI-Smart-Assistant/slides/Part8_%E7%B8%BD%E7%B5%90%E8%88%87%E5%BB%B6%E4%BC%B8%E6%87%89%E7%94%A8.html" target="_blank">
+                        <span class="part-num">8</span> 總結與延伸應用 <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="https://chatgpt3a01.github.io/AI-Smart-Assistant/slides/index.html" target="_blank">開啟統整頁 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CH5 -->
+            <div class="chapter-card ch5" data-keywords="Prompt 提示詞 生成系統 RAG Google Sheets">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-number">5</div>
+                    <div class="card-header-text">
+                        <h3>AI Prompt 互動提示詞生成系統</h3>
+                        <div class="part-count">7 個 Part</div>
+                    </div>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="card-parts">
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Prompt_Generator/slides/Part1_%E7%B3%BB%E7%B5%B1%E4%BB%8B%E7%B4%B9%E8%88%87%E5%BF%AB%E9%80%9F%E9%96%8B%E5%A7%8B.html" target="_blank">
+                        <span class="part-num">1</span> 系統介紹與快速開始 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Prompt_Generator/slides/Part2_%E5%B0%88%E6%A1%88%E6%9E%B6%E6%A7%8B%E8%88%87%E6%9C%8D%E5%8B%99%E8%A8%AD%E8%A8%88.html" target="_blank">
+                        <span class="part-num">2</span> 專案架構與服務設計 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Prompt_Generator/slides/Part3_%E4%BA%92%E5%8B%95%E5%BC%8F%E6%8F%90%E7%A4%BA%E8%A9%9E%E7%94%9F%E6%88%90%E5%99%A8.html" target="_blank">
+                        <span class="part-num">3</span> 互動式提示詞生成器 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Prompt_Generator/slides/Part4_RAG%E7%9F%A5%E8%AD%98%E5%BA%AB%E5%8A%9F%E8%83%BD.html" target="_blank">
+                        <span class="part-num">4</span> RAG 知識庫功能 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Prompt_Generator/slides/Part5_Google_Sheets%E6%95%B4%E5%90%88.html" target="_blank">
+                        <span class="part-num">5</span> Google Sheets 整合 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Prompt_Generator/slides/Part6_%E7%96%91%E9%9B%A3%E6%8E%92%E8%A7%A3%E8%88%87%E6%95%88%E8%83%BD%E5%84%AA%E5%8C%96.html" target="_blank">
+                        <span class="part-num">6</span> 疑難排解與效能優化 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Prompt_Generator/slides/Part7_%E9%80%B2%E9%9A%8E%E6%93%B4%E5%B1%95%E8%88%87%E5%AE%A2%E8%A3%BD%E5%8C%96.html" target="_blank">
+                        <span class="part-num">7</span> 進階擴展與客製化 <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="https://chatgpt3a01.github.io/AI_Prompt_Generator/slides/Overview.html" target="_blank">開啟統整頁 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CH6 -->
+            <div class="chapter-card ch6" data-keywords="表單 Form Gemini Google Forms">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-number">6</div>
+                    <div class="card-header-text">
+                        <h3>AI 生成表單系統</h3>
+                        <div class="part-count">6 個 Part</div>
+                    </div>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="card-parts">
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Form_Generator/slides/Part1.html" target="_blank">
+                        <span class="part-num">1</span> 快速開始：3 分鐘生成 AI 問卷 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Form_Generator/slides/Part2.html" target="_blank">
+                        <span class="part-num">2</span> 系統價值與應用場景 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Form_Generator/slides/Part3.html" target="_blank">
+                        <span class="part-num">3</span> 專案架構與三層設計 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Form_Generator/slides/Part4.html" target="_blank">
+                        <span class="part-num">4</span> Gemini 提示詞工程與 AI 互動 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Form_Generator/slides/Part5.html" target="_blank">
+                        <span class="part-num">5</span> Google Forms API 實作 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Form_Generator/slides/Part6.html" target="_blank">
+                        <span class="part-num">6</span> 實務應用與進階擴展 <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="https://chatgpt3a01.github.io/AI_Form_Generator/slides/index.html" target="_blank">開啟統整頁 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CH7 -->
+            <div class="chapter-card ch7" data-keywords="預約 Booking 智能 對話">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-number">7</div>
+                    <div class="card-header-text">
+                        <h3>AI 預約系統</h3>
+                        <div class="part-count">7 個 Part</div>
+                    </div>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="card-parts">
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Booking_System/slides/Part1_%E5%BF%AB%E9%80%9F%E9%96%8B%E5%A7%8B.html" target="_blank">
+                        <span class="part-num">1</span> 快速開始：5 分鐘啟動 AI 預約助理 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Booking_System/slides/Part2_%E8%A8%AD%E8%A8%88%E7%90%86%E5%BF%B5.html" target="_blank">
+                        <span class="part-num">2</span> 智能預約系統的設計理念 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Booking_System/slides/Part3_%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B.html" target="_blank">
+                        <span class="part-num">3</span> 系統架構與智能對話設計 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Booking_System/slides/Part4_%E6%8F%90%E7%A4%BA%E8%A9%9E%E5%B7%A5%E7%A8%8B.html" target="_blank">
+                        <span class="part-num">4</span> 提示詞工程與對話優化 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Booking_System/slides/Part5_%E5%AF%A6%E5%8B%99%E6%87%89%E7%94%A8.html" target="_blank">
+                        <span class="part-num">5</span> 實務應用場景與系統客製化 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Booking_System/slides/Part6_%E9%80%B2%E9%9A%8E%E6%93%B4%E5%B1%95.html" target="_blank">
+                        <span class="part-num">6</span> 進階擴展與系統優化 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/AI_Booking_System/slides/Part7_%E5%B0%8F%E7%B5%90.html" target="_blank">
+                        <span class="part-num">7</span> 小結與延伸 <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="https://chatgpt3a01.github.io/AI_Booking_System/index.html" target="_blank">開啟統整頁 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CH8 -->
+            <div class="chapter-card ch8" data-keywords="LINE Bot 聊天機器人 GAS">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-number">8</div>
+                    <div class="card-header-text">
+                        <h3>LINE 聊天機器人</h3>
+                        <div class="part-count">6 個 Part</div>
+                    </div>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="card-parts">
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LINE-Bot-Generator/slides/part1.html" target="_blank">
+                        <span class="part-num">1</span> LINE Bot 簡介與應用情境 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LINE-Bot-Generator/slides/part2.html" target="_blank">
+                        <span class="part-num">2</span> 系統需求與環境建置 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LINE-Bot-Generator/slides/part3.html" target="_blank">
+                        <span class="part-num">3</span> 基本設定與 AI 服務選擇 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LINE-Bot-Generator/slides/part4.html" target="_blank">
+                        <span class="part-num">4</span> AI 回應風格與知識庫設定 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LINE-Bot-Generator/slides/part5.html" target="_blank">
+                        <span class="part-num">5</span> 程式碼生成與 GAS 部署 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/LINE-Bot-Generator/slides/part6.html" target="_blank">
+                        <span class="part-num">6</span> 測試與進階應用 <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="https://chatgpt3a01.github.io/LINE-Bot-Generator/slides/index.html" target="_blank">開啟統整頁 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CH9 -->
+            <div class="chapter-card ch9" data-keywords="YouTube 影片 測驗 問答 GAS 成績">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-number">9</div>
+                    <div class="card-header-text">
+                        <h3>YT 影片互動問答系統</h3>
+                        <div class="part-count">6 個 Part</div>
+                    </div>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="card-parts">
+                    <a class="part-link" href="https://chatgpt3a01.github.io/YT-Quiz-Generator/slides/part1.html" target="_blank">
+                        <span class="part-num">1</span> 影片互動學習簡介 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/YT-Quiz-Generator/slides/part2.html" target="_blank">
+                        <span class="part-num">2</span> 系統需求與環境建置 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/YT-Quiz-Generator/slides/part3.html" target="_blank">
+                        <span class="part-num">3</span> 題庫生成器使用教學 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/YT-Quiz-Generator/slides/part4.html" target="_blank">
+                        <span class="part-num">4</span> 學生端答題系統 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/YT-Quiz-Generator/slides/part5.html" target="_blank">
+                        <span class="part-num">5</span> Google Apps Script 成績回傳 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/YT-Quiz-Generator/slides/part6.html" target="_blank">
+                        <span class="part-num">6</span> 進階功能與應用案例 <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="https://chatgpt3a01.github.io/YT-Quiz-Generator/slides/index.html" target="_blank">開啟統整頁 &rarr;</a>
+                </div>
+            </div>
+
+            <!-- CH10 -->
+            <div class="chapter-card ch10" data-keywords="Ollama 本地 AI 模型 對話平台">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="card-number">10</div>
+                    <div class="card-header-text">
+                        <h3>Ollama 下載 AI 模型串接對話平台</h3>
+                        <div class="part-count">5 個 Part</div>
+                    </div>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="card-parts">
+                    <a class="part-link" href="https://chatgpt3a01.github.io/Ollama-AI-Chat-Platform/%E7%B0%A1%E5%A0%B1/Part1_%E6%9C%AC%E5%9C%B0AI%E5%85%A5%E9%96%80%E8%88%87%E5%83%B9%E5%80%BC.html" target="_blank">
+                        <span class="part-num">1</span> 本地 AI 入門與價值 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/Ollama-AI-Chat-Platform/%E7%B0%A1%E5%A0%B1/Part2_%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BOllama.html" target="_blank">
+                        <span class="part-num">2</span> 快速上手 Ollama <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/Ollama-AI-Chat-Platform/%E7%B0%A1%E5%A0%B1/Part3_%E8%87%AA%E5%BB%BA%E7%B6%B2%E9%A0%81%E5%B0%8D%E8%A9%B1%E5%B9%B3%E5%8F%B0.html" target="_blank">
+                        <span class="part-num">3</span> 自建網頁對話平台 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/Ollama-AI-Chat-Platform/%E7%B0%A1%E5%A0%B1/Part4_%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B%E8%88%87%E6%A8%A1%E5%9E%8B%E9%81%B8%E6%93%87.html" target="_blank">
+                        <span class="part-num">4</span> 系統架構與模型選擇 <span class="arrow">&rarr;</span>
+                    </a>
+                    <a class="part-link" href="https://chatgpt3a01.github.io/Ollama-AI-Chat-Platform/%E7%B0%A1%E5%A0%B1/Part5_%E5%AF%A6%E6%88%B0%E6%A1%88%E4%BE%8B%E8%88%87%E5%BB%B6%E4%BC%B8.html" target="_blank">
+                        <span class="part-num">5</span> 實戰案例與延伸 <span class="arrow">&rarr;</span>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="https://chatgpt3a01.github.io/Ollama-AI-Chat-Platform/%E7%B0%A1%E5%A0%B1/index.html" target="_blank">開啟統整頁 &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 作者資訊 -->
+    <section class="author-section">
+        <div class="author-card">
+            <h2>曾慶良 主任（阿亮老師）</h2>
+            <div class="author-title">新興科技推廣中心主任 / 教育部 AI 講師</div>
+
+            <div class="author-positions">
+                <span class="position-tag">新興科技推廣中心主任</span>
+                <span class="position-tag">教育部學科中心研究教師</span>
+                <span class="position-tag">臺北市資訊教育輔導員</span>
+            </div>
+
+            <div class="awards">
+                <span class="award-tag">2025 SETEAM 講師認證</span>
+                <span class="award-tag">2024 教育部 AI 講師認證</span>
+                <span class="award-tag">2022-23 XR 專題競賽特優</span>
+                <span class="award-tag">2019 百大資訊人才獎</span>
+                <span class="award-tag">2018-19 親子天下創新 100</span>
+                <span class="award-tag">2018 臺北市特殊優良教師</span>
+                <span class="award-tag">2017 教育部行動學習優等</span>
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.youtube.com/@Liang-yt02" target="_blank" class="social-link yt">
+                    &#9654; YouTube
+                </a>
+                <a href="https://www.facebook.com/groups/2754139931432955" target="_blank" class="social-link fb">
+                    f Facebook 社團
+                </a>
+                <a href="mailto:3a01chatgpt@gmail.com" class="social-link email">
+                    &#9993; 3a01chatgpt@gmail.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <p>&copy; 2026 阿亮老師 版權所有｜本平台僅供課程學員學習使用</p>
+    </footer>
+
+    <script>
+        // 展開/收合
+        function toggleCard(header) {
+            const card = header.closest('.chapter-card');
+            card.classList.toggle('open');
+        }
+
+        // 搜尋
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('.chapter-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                const keywords = (card.dataset.keywords || '').toLowerCase();
+                const match = text.includes(query) || keywords.includes(query);
+                card.style.display = match ? '' : 'none';
+                if (match && query.length > 0) {
+                    card.classList.add('open');
+                } else if (query.length === 0) {
+                    card.classList.remove('open');
+                }
+            });
+        });
+
+        // 全部展開快捷鍵 (Ctrl+Shift+E)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'E') {
+                const cards = document.querySelectorAll('.chapter-card');
+                const allOpen = [...cards].every(c => c.classList.contains('open'));
+                cards.forEach(c => allOpen ? c.classList.remove('open') : c.classList.add('open'));
+            }
+        });
+    </script>
+</body>
+</html>
